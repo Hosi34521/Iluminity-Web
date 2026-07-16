@@ -1,7 +1,7 @@
 (function () {
   const base = document.body.dataset.base || "";
   const catalog = window.ILUMINITY_CATALOG || [];
-  const SALES_EMAIL = "iluminity.inc@gmail.com";
+  const SALES_EMAIL = "iluminity.studio@gmail.com";
   const INSTAGRAM_URL = "https://www.instagram.com/iluminity.inc/";
 
   document.head.insertAdjacentHTML("beforeend", `<link rel="icon" href="${base}favicon.svg" type="image/svg+xml"><link rel="manifest" href="${base}site.webmanifest">`);
@@ -41,7 +41,7 @@
             <div><span class="eyebrow">Explore</span><h2 class="drawer-title">Websites by industry</h2></div>
             <button class="icon-button" data-close-drawer aria-label="Close website catalog">✕</button>
           </div>
-          <div class="search-wrap">${searchIcon}<input class="industry-search" type="search" placeholder="Search: restaurant, dentist, abogado..." aria-label="Search industries"></div>
+          <div class="search-wrap">${searchIcon}<input class="industry-search" type="search" placeholder="Search: restaurant, dentist, lawyer..." aria-label="Search industries"></div>
           <div class="drawer-meta"><span>English + Español + Português</span><span data-result-count>${catalog.length} industries</span></div>
           <div class="industry-list" data-industry-list></div>
           <div class="empty-search" data-empty-search>No matching industry.<br>Try another keyword.</div>
@@ -135,20 +135,10 @@
     document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
   }
 
-  function forms() {
-    document.querySelectorAll("[data-contact-form]").forEach((form) => form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const status = form.querySelector(".form-status");
-      status.textContent = "Thank you. We received your project details and will contact you shortly.";
-      form.reset();
-    }));
-  }
-
   shell();
   ambient();
   bindDrawer();
   reveals();
-  forms();
 
   window.Iluminity = {
     emailUrl(industry, model) {
