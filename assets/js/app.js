@@ -2,7 +2,7 @@
   const base = document.body.dataset.base || "";
   const catalog = window.ILUMINITY_CATALOG || [];
   const SALES_EMAIL = "iluminity.studio@gmail.com";
-  const INSTAGRAM_URL = "https://www.instagram.com/iluminity.inc/";
+  const INSTAGRAM_URL = "https://www.instagram.com/iluminity.studio/";
 
   document.head.insertAdjacentHTML("beforeend", `<link rel="icon" href="${base}favicon.svg" type="image/svg+xml"><link rel="manifest" href="${base}site.webmanifest">`);
 
