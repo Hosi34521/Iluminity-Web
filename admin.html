@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow"><title>Catalog Studio — Iluminity</title><link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header"><div><span class="eyebrow">Private workspace</span><h1>Catalog Studio</h1><p>Edit the local catalog or synchronize it with your private Google Sheet.</p></div><a class="btn" href="index.html">View website ↗</a></header>
+  <main class="admin-layout">
+    <aside class="glass-card admin-sidebar">
+      <h2>Data connection</h2>
+      <p>For Google Sheets, paste the deployed Apps Script URL and enter the write key only when synchronizing. The key is not stored.</p>
+      <label>Apps Script web app URL<input id="sheet-endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec"></label>
+      <label>Session write key<input id="sheet-secret" type="password" placeholder="Not saved"></label>
+      <button class="btn" id="pull-sheet">Pull from Sheets</button>
+      <button class="btn btn-primary" id="push-sheet">Push catalog to Sheets</button>
+      <hr>
+      <button class="btn" id="save-local">Save local draft</button>
+      <button class="btn" id="export-json">Export JSON backup</button>
+      <button class="btn" id="reset-local">Reset local draft</button>
+      <p class="admin-status" id="admin-status" aria-live="polite"></p>
+    </aside>
+    <section class="admin-content">
+      <div class="admin-content-head"><div><h2>Industries</h2><p>Changes appear in the website after saving a local draft.</p></div><span id="admin-count"></span></div>
+      <div class="admin-list" id="admin-list"></div>
+    </section>
+  </main>
+  <script src="assets/js/catalog.js?v=20260701"></script><script src="assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "Iluminity",
+  "short_name": "Iluminity",
+  "description": "Premium websites for local businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04040e",
+  "theme_color": "#04040e",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

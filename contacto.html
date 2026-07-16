@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Iluminity about a custom website for your local business.">
+  <title>Start a Project — Iluminity</title><link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="">
+  <div data-header></div><div data-drawer></div>
+  <main>
+    <section class="page-hero"><div class="container"><span class="eyebrow">Start a project</span><h1>Let’s build something your customers will <span class="gradient-text">remember.</span></h1><p>No long intake form. Choose the fastest way to reach us and tell us which industry or website concept caught your attention.</p></div></section>
+    <section class="section" style="padding-top:20px"><div class="container">
+      <div class="contact-options">
+        <a class="glass-card contact-option reveal" id="gmail-contact" target="_blank" rel="noopener" href="#">
+          <span class="contact-option-icon">✉</span><small>Recommended</small><h2>Send a project email</h2><p>Open a prewritten Gmail message with the exact details we need to prepare your next steps.</p><b>Compose email →</b>
+        </a>
+        <a class="glass-card contact-option reveal" href="https://www.instagram.com/iluminity.inc/" target="_blank" rel="noopener">
+          <span class="contact-option-icon">◎</span><small>Quick conversation</small><h2>Message us on Instagram</h2><p>Share a demo, ask a quick question or tell us about the business you want to launch.</p><b>@iluminity.inc →</b>
+        </a>
+      </div>
+      <div class="contact-note reveal"><span>Direct email</span><a href="mailto:iluminity.inc@gmail.com">iluminity.inc@gmail.com</a><p>We typically reply within one business day. Written support is available in English, Spanish and Portuguese.</p><p>No payment is requested before you receive and accept a written scope, timeline and price.</p></div>
+    </div></section>
+  </main>
+  <div data-footer></div><script src="assets/js/catalog.js?v=20260701"></script><script src="assets/js/app.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const industry = params.get("industry") || "Custom website";
+    const modelIndex = Number(params.get("model") || 0);
+    const catalogItem = window.getIndustry?.(industry);
+    const model = catalogItem?.models?.[modelIndex] || "";
+    document.getElementById("gmail-contact").href = window.Iluminity.emailUrl(catalogItem?.name || industry, model);
+  </script>
+</body>
+</html>
