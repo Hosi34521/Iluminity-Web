@@ -1,34 +1,137 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Iluminity about a custom website for your local business.">
-  <title>Start a Project — Iluminity</title><link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Start a website project with Iluminity and send your details directly to our project CRM.">
+  <title>Start a Project — Iluminity</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .lead-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
+    .lead-card,.lead-aside{border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.035);box-shadow:var(--shadow);backdrop-filter:blur(18px)}
+    .lead-card{padding:32px}.lead-aside{padding:28px;position:sticky;top:110px}
+    .lead-card h2,.lead-aside h2{font-size:1.7rem;margin-bottom:8px}.lead-card>p,.lead-aside>p{color:var(--muted);margin-bottom:24px}
+    .lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.lead-field{display:grid;gap:8px}.lead-field.full{grid-column:1/-1}
+    .lead-field label{color:rgba(238,238,255,.7);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+    .lead-field input,.lead-field select,.lead-field textarea{width:100%;border:1px solid var(--line);border-radius:14px;outline:0;color:var(--text);background:rgba(255,255,255,.035);padding:14px 15px;transition:border-color .2s,box-shadow .2s,transform .2s}
+    .lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{transform:translateY(-1px);border-color:rgba(124,111,255,.55);box-shadow:0 0 0 4px rgba(124,111,255,.08)}
+    .lead-field select option{color:#111;background:#fff}.lead-field textarea{min-height:150px;resize:vertical}
+    .lead-submit{width:100%;margin-top:18px}.lead-status{display:none;margin-top:14px;padding:13px 15px;border-radius:12px;font-size:.78rem}.lead-status.show{display:block}.lead-status.success{color:#b9ffdb;background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.25)}.lead-status.error{color:#ffd0d0;background:rgba(255,92,92,.11);border:1px solid rgba(255,92,92,.25)}
+    .lead-note{margin-top:14px;color:var(--muted);font-size:.7rem}.lead-summary{display:grid;gap:12px;margin:18px 0 24px}.lead-summary div{padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.lead-summary small{display:block;color:var(--muted);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em}.lead-summary strong{display:block;margin-top:4px;font-family:"Syne",sans-serif;font-size:.9rem}
+    .secondary-links{display:grid;gap:10px}.secondary-links a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);font-size:.78rem;transition:transform .2s,border-color .2s}.secondary-links a:hover{transform:translateY(-2px);border-color:rgba(124,111,255,.35)}
+    .hp-field{position:absolute!important;left:-10000px!important;opacity:0!important;pointer-events:none!important}
+    @media(max-width:860px){.lead-layout{grid-template-columns:1fr}.lead-aside{position:static}.lead-grid{grid-template-columns:1fr}.lead-field.full{grid-column:auto}.lead-card,.lead-aside{padding:22px}}
+  </style>
 </head>
 <body data-base="">
   <div data-header></div><div data-drawer></div>
   <main>
-    <section class="page-hero"><div class="container"><span class="eyebrow">Start a project</span><h1>Let’s build something your customers will <span class="gradient-text">remember.</span></h1><p>No long intake form. Choose the fastest way to reach us and tell us which industry or website concept caught your attention.</p></div></section>
-    <section class="section" style="padding-top:20px"><div class="container">
-      <div class="contact-options">
-        <a class="glass-card contact-option reveal" id="gmail-contact" target="_blank" rel="noopener" href="#">
-          <span class="contact-option-icon">✉</span><small>Recommended</small><h2>Send a project email</h2><p>Open a prewritten Gmail message with the exact details we need to prepare your next steps.</p><b>Compose email →</b>
-        </a>
-        <a class="glass-card contact-option reveal" href="https://www.instagram.com/iluminity.inc/" target="_blank" rel="noopener">
-          <span class="contact-option-icon">◎</span><small>Quick conversation</small><h2>Message us on Instagram</h2><p>Share a demo, ask a quick question or tell us about the business you want to launch.</p><b>@iluminity.inc →</b>
-        </a>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Start a project</span>
+        <h1>Tell us what you need. We’ll turn it into a <span class="gradient-text">clear project plan.</span></h1>
+        <p>Send your details directly to our project system. We will review your business, selected demo and budget before replying with the next steps.</p>
       </div>
-      <div class="contact-note reveal"><span>Direct email</span><a href="mailto:iluminity.inc@gmail.com">iluminity.inc@gmail.com</a><p>We typically reply within one business day. Written support is available in English, Spanish and Portuguese.</p><p>No payment is requested before you receive and accept a written scope, timeline and price.</p></div>
-    </div></section>
+    </section>
+
+    <section class="section" style="padding-top:20px">
+      <div class="container lead-layout">
+        <form class="lead-card" id="lead-form" novalidate>
+          <h2>Project details</h2>
+          <p>Fields marked with * are required.</p>
+          <div class="lead-grid">
+            <div class="lead-field"><label for="name">Your name *</label><input id="name" name="name" autocomplete="name" required maxlength="120"></div>
+            <div class="lead-field"><label for="company">Business name</label><input id="company" name="company" autocomplete="organization" maxlength="180"></div>
+            <div class="lead-field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="180"></div>
+            <div class="lead-field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" autocomplete="tel" maxlength="80"></div>
+            <div class="lead-field"><label for="location">City / State</label><input id="location" name="location" autocomplete="address-level2" maxlength="180"></div>
+            <div class="lead-field"><label for="service">Service *</label><select id="service" name="service" required><option value="">Select a service</option><option>Landing page</option><option>Business website</option><option>Growth website</option><option>Custom website design</option><option>Website redesign</option><option>Other</option></select></div>
+            <div class="lead-field"><label for="industry">Industry / selected demo</label><input id="industry" name="industry" maxlength="160"></div>
+            <div class="lead-field"><label for="estimatedValue">Approximate budget</label><select id="estimatedValue" name="estimatedValue"><option value="">Not decided yet</option><option>USD 450–650</option><option>USD 650–1,250</option><option>USD 1,250–2,400</option><option>USD 2,400+</option></select></div>
+            <div class="lead-field full"><label for="message">Tell us about the project</label><textarea id="message" name="message" maxlength="5000" placeholder="What does your business do, what pages do you need and what would you like to improve?"></textarea></div>
+            <div class="hp-field" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+          </div>
+          <button class="btn btn-primary lead-submit" id="lead-submit" type="submit">Send project request →</button>
+          <div class="lead-status" id="lead-status" role="status" aria-live="polite"></div>
+          <p class="lead-note">No payment is requested through this form. We first confirm scope, timeline and price in writing.</p>
+        </form>
+
+        <aside class="lead-aside">
+          <span class="eyebrow">Your selection</span>
+          <h2>We already know what caught your attention.</h2>
+          <p>When you arrive from a demo, the industry and design model are added automatically.</p>
+          <div class="lead-summary">
+            <div><small>Industry</small><strong id="selected-industry">Custom website</strong></div>
+            <div><small>Design direction</small><strong id="selected-model">Not selected</strong></div>
+          </div>
+          <div class="secondary-links">
+            <a id="gmail-contact" target="_blank" rel="noopener" href="#"><span>Prefer email?</span><b>Open Gmail →</b></a>
+            <a href="https://www.instagram.com/iluminity.inc/" target="_blank" rel="noopener"><span>Quick question?</span><b>Instagram →</b></a>
+            <a href="mailto:iluminity.inc@gmail.com"><span>Direct email</span><b>iluminity.inc@gmail.com</b></a>
+          </div>
+        </aside>
+      </div>
+    </section>
   </main>
-  <div data-footer></div><script src="assets/js/catalog.js?v=20260701"></script><script src="assets/js/app.js"></script>
+
+  <div data-footer></div>
+  <script src="assets/js/catalog.js?v=20260701"></script>
+  <script src="assets/js/app.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
-    const industry = params.get("industry") || "Custom website";
+    const industryParam = params.get("industry") || "Custom website";
     const modelIndex = Number(params.get("model") || 0);
-    const catalogItem = window.getIndustry?.(industry);
+    const catalogItem = window.getIndustry?.(industryParam);
     const model = catalogItem?.models?.[modelIndex] || "";
-    document.getElementById("gmail-contact").href = window.Iluminity.emailUrl(catalogItem?.name || industry, model);
+    const industryName = catalogItem?.name || industryParam;
+
+    document.getElementById("industry").value = model ? `${industryName} — ${model}` : industryName;
+    document.getElementById("selected-industry").textContent = industryName;
+    document.getElementById("selected-model").textContent = model || "Not selected";
+    document.getElementById("gmail-contact").href = window.Iluminity.emailUrl(industryName, model);
+
+    const form = document.getElementById("lead-form");
+    const submit = document.getElementById("lead-submit");
+    const status = document.getElementById("lead-status");
+
+    function showStatus(message, type) {
+      status.textContent = message;
+      status.className = `lead-status show ${type}`;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      status.className = "lead-status";
+
+      if (!form.reportValidity()) return;
+
+      submit.disabled = true;
+      submit.textContent = "Sending…";
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.pageUrl = location.href;
+      data.language = document.documentElement.lang || "en";
+      data.priority = "Media";
+
+      try {
+        const response = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.ok === false) throw new Error(result.error || "The request could not be saved.");
+
+        showStatus("Thank you. Your project request was saved successfully. We will reply by email.", "success");
+        form.reset();
+        document.getElementById("industry").value = model ? `${industryName} — ${model}` : industryName;
+      } catch (error) {
+        showStatus(`${error.message} You can still contact us using Gmail or Instagram.`, "error");
+      } finally {
+        submit.disabled = false;
+        submit.textContent = "Send project request →";
+      }
+    });
   </script>
 </body>
 </html>
