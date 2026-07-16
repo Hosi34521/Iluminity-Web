@@ -59,7 +59,7 @@
         <aside class="lead-aside">
           <span class="eyebrow">Your selection</span>
           <h2>We already know what caught your attention.</h2>
-          <p>When you arrive from a demo, the industry and design model are added automatically.</p>
+          <p>When you arrive from a demo or pricing option, the relevant details are added automatically.</p>
           <div class="lead-summary">
             <div><small>Industry</small><strong id="selected-industry">Custom website</strong></div>
             <div><small>Design direction</small><strong id="selected-model">Not selected</strong></div>
@@ -67,7 +67,7 @@
           <div class="secondary-links">
             <a id="gmail-contact" target="_blank" rel="noopener" href="#"><span>Prefer email?</span><b>Open Gmail →</b></a>
             <a href="https://www.instagram.com/iluminity.inc/" target="_blank" rel="noopener"><span>Quick question?</span><b>Instagram →</b></a>
-            <a href="mailto:iluminity.inc@gmail.com"><span>Direct email</span><b>iluminity.inc@gmail.com</b></a>
+            <a href="mailto:iluminity.studio@gmail.com"><span>Direct email</span><b>iluminity.studio@gmail.com</b></a>
           </div>
         </aside>
       </div>
@@ -81,6 +81,8 @@
     const params = new URLSearchParams(location.search);
     const industryParam = params.get("industry") || "Custom website";
     const modelIndex = Number(params.get("model") || 0);
+    const serviceParam = params.get("service") || "";
+    const budgetParam = params.get("budget") || "";
     const catalogItem = window.getIndustry?.(industryParam);
     const model = catalogItem?.models?.[modelIndex] || "";
     const industryName = catalogItem?.name || industryParam;
@@ -89,6 +91,8 @@
     document.getElementById("selected-industry").textContent = industryName;
     document.getElementById("selected-model").textContent = model || "Not selected";
     document.getElementById("gmail-contact").href = window.Iluminity.emailUrl(industryName, model);
+    if (serviceParam) document.getElementById("service").value = serviceParam;
+    if (budgetParam) document.getElementById("estimatedValue").value = budgetParam;
 
     const form = document.getElementById("lead-form");
     const submit = document.getElementById("lead-submit");
@@ -125,6 +129,8 @@
         showStatus("Thank you. Your project request was saved successfully. We will reply by email.", "success");
         form.reset();
         document.getElementById("industry").value = model ? `${industryName} — ${model}` : industryName;
+        if (serviceParam) document.getElementById("service").value = serviceParam;
+        if (budgetParam) document.getElementById("estimatedValue").value = budgetParam;
       } catch (error) {
         showStatus(`${error.message} You can still contact us using Gmail or Instagram.`, "error");
       } finally {
