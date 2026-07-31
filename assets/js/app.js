@@ -22,11 +22,15 @@
             <div class="nav-center">
               <a class="nav-link" href="${base}servicios.html">Services</a>
               <a class="nav-link" href="${base}portafolio.html">Web demos</a>
-              <button class="nav-link" data-open-drawer style="border:0;background:none;cursor:pointer">Industries ↓</button>
+              <button class="nav-link" type="button" data-open-drawer style="border:0;background:none;cursor:pointer">Industries ↓</button>
               <a class="nav-link" href="${base}pricing.html">Pricing</a>
             </div>
             <div class="nav-actions">
-              <button class="icon-button" data-open-drawer aria-label="Open website catalog">${searchIcon}</button>
+              <div class="region-switch" aria-label="Choose region">
+                <span class="nav-link" aria-current="page">US</span>
+                <a class="nav-link" href="${base}br/">BR</a>
+              </div>
+              <button class="icon-button" type="button" data-open-drawer aria-label="Open website catalog">${searchIcon}</button>
               <a class="btn btn-primary btn-sm" href="${base}contacto.html">Start a project ${arrow}</a>
             </div>
           </nav>
@@ -39,7 +43,7 @@
         <aside class="drawer" aria-label="Website catalog by industry" aria-hidden="true">
           <div class="drawer-top">
             <div><span class="eyebrow">Explore</span><h2 class="drawer-title">Websites by industry</h2></div>
-            <button class="icon-button" data-close-drawer aria-label="Close website catalog">✕</button>
+            <button class="icon-button" type="button" data-close-drawer aria-label="Close website catalog">✕</button>
           </div>
           <div class="search-wrap">${searchIcon}<input class="industry-search" type="search" placeholder="Search: restaurant, dentist, lawyer..." aria-label="Search industries"></div>
           <div class="drawer-meta"><span>English + Español + Português</span><span data-result-count>${catalog.length} industries</span></div>
@@ -53,7 +57,7 @@
       footer.innerHTML = `
         <footer><div class="container footer-inner">
           <span>© ${new Date().getFullYear()} Iluminity. Independent web design studio.</span>
-          <div class="footer-links"><a href="${base}servicios.html">Services</a><a href="${base}portafolio.html">Demos</a><a href="${base}pricing.html">Pricing</a><a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="${base}terms.html">Terms</a></div>
+          <div class="footer-links"><a href="${base}servicios.html">Services</a><a href="${base}portafolio.html">Demos</a><a href="${base}pricing.html">Pricing</a><a href="${base}br/">Brasil</a><a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="${base}terms.html">Terms</a></div>
         </div></footer>`;
     }
   }
@@ -86,36 +90,46 @@
   function bindDrawer() {
     const drawer = document.querySelector(".drawer");
     const input = document.querySelector(".industry-search");
+    if (!drawer) return;
+
     const open = () => {
       document.body.classList.add("menu-open");
-      drawer?.setAttribute("aria-hidden", "false");
+      drawer.setAttribute("aria-hidden", "false");
       setTimeout(() => input?.focus(), 250);
     };
     const close = () => {
       document.body.classList.remove("menu-open");
-      drawer?.setAttribute("aria-hidden", "true");
+      drawer.setAttribute("aria-hidden", "true");
     };
 
-    document.querySelectorAll("[data-open-drawer]").forEach((button) => button.addEventListener("click", open));
-    document.querySelectorAll("[data-close-drawer]").forEach((button) => button.addEventListener("click", close));
-    document.addEventListener("keydown", (event) => { if (event.key === "Escape") close(); });
-
-    input?.addEventListener("input", () => {
-      const term = normalize(input.value.trim());
-      const filtered = catalog.filter((item) => normalize([item.name, item.es, item.pt || "", item.slug, ...item.aliases].join(" ")).includes(term));
-      renderIndustryList(filtered);
+    document.querySelectorAll("[data-open-drawer]").forEach((button) => {
+      button.onclick = open;
     });
+    document.querySelectorAll("[data-close-drawer]").forEach((button) => {
+      button.onclick = close;
+    });
+    document.onkeydown = (event) => { if (event.key === "Escape") close(); };
+
+    if (input) {
+      input.oninput = () => {
+        const term = normalize(input.value.trim());
+        const filtered = catalog.filter((item) => normalize([item.name, item.es, item.pt || "", item.slug, ...item.aliases].join(" ")).includes(term));
+        renderIndustryList(filtered);
+      };
+    }
   }
 
   function ambient() {
-    document.body.insertAdjacentHTML("afterbegin", `
-      <div class="progress" aria-hidden="true"></div><div class="orb one"></div><div class="orb two"></div>
-      <svg class="grain" aria-hidden="true"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".86" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#noise)"/></svg>`);
+    if (!document.querySelector(".progress")) {
+      document.body.insertAdjacentHTML("afterbegin", `
+        <div class="progress" aria-hidden="true"></div><div class="orb one"></div><div class="orb two"></div>
+        <svg class="grain" aria-hidden="true"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".86" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#noise)"/></svg>`);
+    }
 
     const progress = document.querySelector(".progress");
     const update = () => {
       const length = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = `${length > 0 ? scrollY / length * 100 : 0}%`;
+      if (progress) progress.style.width = `${length > 0 ? scrollY / length * 100 : 0}%`;
     };
     addEventListener("scroll", update, { passive: true });
     addEventListener("pointermove", (event) => {
@@ -126,6 +140,10 @@
   }
 
   function reveals() {
+    if (!("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
+      return;
+    }
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
@@ -135,10 +153,19 @@
     document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
   }
 
+  function initInteractiveUi() {
+    document.body.classList.remove("menu-open");
+    bindDrawer();
+    reveals();
+  }
+
   shell();
   ambient();
-  bindDrawer();
-  reveals();
+  initInteractiveUi();
+
+  window.addEventListener("pageshow", () => {
+    initInteractiveUi();
+  });
 
   window.Iluminity = {
     emailUrl(industry, model) {
