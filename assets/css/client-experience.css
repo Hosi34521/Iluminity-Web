@@ -1,6 +1,7 @@
 /* Client-facing refinements; retains the existing Iluminity palette and typography. */
 :root { --muted: #adb2c8; }
 .nav-link { color:#c1c4d6; }
+.region-switch { display:flex;align-items:center;gap:10px; }
 .mobile-menu-toggle { display:none; }
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:3px solid #66dcff; outline-offset:5px; }
 .hero h1 { font-size:clamp(2.8rem,6.5vw,6rem); line-height:1.03; max-width:1000px; }
@@ -55,3 +56,4 @@ button:disabled { opacity:.6;cursor:wait; }.privacy-copy { max-width:800px;line-
  .hero-actions { flex-wrap:wrap; }.demo-toolbar-title strong { font-size:.85rem; }.demo-toolbar { gap:8px; }.demo-toolbar-actions .btn { font-size:.7rem;padding:10px; }
 }
 @media(prefers-reduced-motion:reduce) { .flow-step,.btn,.solution-card { transition:none!important; } }
+
