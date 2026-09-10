@@ -7,7 +7,7 @@
   document.querySelectorAll('a[href]').forEach(a => {
     const url = new URL(a.getAttribute('href'), location.href);
     if (url.origin !== location.origin) return;
-    if (br && url.pathname === '/index.html') a.href = '/br/';
+    if (br && url.pathname === '/index.html' && !a.closest('.nav-actions')) a.href = '/br/';
     if (br && (/\/(roofing|dental|hvac|realtor|law|restaurant|medspa|electrician|plumber|landscaping)\/$/.test(url.pathname) || /\/(preview|portafolio)(\.html)?$/.test(url.pathname))) {
       url.searchParams.set('region', 'br'); a.href = url.pathname + url.search + url.hash;
     }
@@ -49,7 +49,7 @@
       : '<a class="nav-link" href="/servicios.html">Solutions</a><a class="nav-link" href="/portafolio.html">Demos</a><a class="nav-link" href="/servicios.html#process">How we work</a><a class="nav-link" href="/pricing.html">Pricing</a>';
     const brand = nav.querySelector('.brand'); if (brand) brand.href = root;
     const primary = nav.querySelector('.nav-actions .btn-primary');
-    if (primary) { primary.href = br ? '/br/contato.html' : '/contacto.html'; primary.textContent = br ? 'Conte sua ideia →' : 'Tell us your idea →'; }
+    if (primary) { primary.href = br ? '/br/contato.html' : '/contacto.html'; primary.textContent = br ? 'Vamos falar do seu projeto →' : 'Discuss your project →'; }
     const search = nav.querySelector('.nav-actions [data-open-drawer]'); if (search) search.remove();
     const button = document.createElement('button');
     button.className = 'mobile-menu-toggle'; button.type = 'button'; button.textContent = 'Menu';
