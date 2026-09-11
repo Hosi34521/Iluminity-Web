@@ -43,10 +43,18 @@ export async function onRequestPost(context) {
 
   let input;
   try {
-    input = await request.json();
+    if (!request.headers.get('content-type')?.includes('application/json')) return json({ok:false,error:'Invalid content type.'},415);
+    const reader = request.body?.getReader();
+    if (!reader) return json({ok:false,error:'Missing body.'},400);
+    const chunks=[]; let size=0;
+    while(true) { const {done,value}=await reader.read(); if(done) break; size+=value.byteLength; if(size>16384) { await reader.cancel(); return json({ok:false,error:'Request too large.'},413); } chunks.push(value); }
+    const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
+    input = JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     return json({ ok: false, error: "Invalid JSON body." }, 400);
   }
+
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return json({ok:false,error:'Invalid request.'},400);
 
   if (clean(input.website, 200)) return json({ ok: true });
 
@@ -57,6 +65,7 @@ export async function onRequestPost(context) {
   if (!name || !email || !service) {
     return json({ ok: false, error: "Name, email and service are required." }, 400);
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ok:false,error:'Invalid email.'},400);
 
   const payload = {
     token: env.LEAD_FORM_TOKEN,
@@ -68,9 +77,9 @@ export async function onRequestPost(context) {
     industry: clean(input.industry, 160),
     source: "Web",
     service,
-    priority: clean(input.priority, 40) || "Media",
+    priority: "Media",
     status: "Nuevo",
-    estimatedValue: clean(input.estimatedValue, 40),
+    estimatedValue: clean(input.estimatedValue, 160),
     message: clean(input.message, 5000),
     pageUrl: clean(input.pageUrl, 1000),
     language: clean(input.language, 10) || "en",
@@ -82,6 +91,7 @@ export async function onRequestPost(context) {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
       redirect: "follow",
+      signal: AbortSignal.timeout(10000),
     });
 
     const text = await upstream.text();
@@ -89,18 +99,18 @@ export async function onRequestPost(context) {
     try {
       data = JSON.parse(text);
     } catch {
-      data = { ok: upstream.ok, raw: text.slice(0, 300) };
+      return json({ok:false,error:'Unable to confirm delivery.'},502);
     }
 
-    if (!upstream.ok || data.ok === false) {
-      return json({ ok: false, error: data.error || "The CRM rejected the lead." }, 502);
+    if (!upstream.ok || data?.ok !== true) {
+      return json({ ok: false, error: "Unable to confirm delivery." }, 502);
     }
 
     return json({ ok: true, leadId: data.leadId || null });
   } catch (error) {
     return json({
       ok: false,
-      error: error instanceof Error ? error.message : "CRM connection failed.",
+      error: "Unable to confirm delivery.",
     }, 502);
   }
 }

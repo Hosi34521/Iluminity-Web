@@ -1,9 +1,10 @@
 (function () {
   const params = new URLSearchParams(location.search);
   const item = window.getIndustry?.(params.get("industry")) || window.ILUMINITY_CATALOG[0];
-  const modelIndex = Math.min(2, Math.max(0, Number(params.get("model") || 0)));
+  const rawIndex = Number(params.get("model") || 0);
+  const modelIndex = Number.isInteger(rawIndex) && rawIndex >= 0 && rawIndex <= 2 ? rawIndex : 0;
   const model = item.models[modelIndex];
-  const email = "iluminity.inc@gmail.com";
+  const br = params.get("region") === "br";
 
   const industryCopy = {
     roofing: { service: "Roof Replacement", service2: "Storm Damage", proof: "Licensed & insured", metric: "Workmanship protection", heroes: ["Roof problems.<br>Clear answers.<br><em>Right when it matters.</em>", "Roofing, resolved with <em>care.</em>", "Local roofers.<br><em>Real protection.</em>"] },
@@ -33,22 +34,8 @@
   const ctas = industryCtas[item.slug] || industryCtas.roofing;
 
   function composeUrl() {
-    const subject = `Website inquiry — ${item.name} / ${model}`;
-    const body = [
-      "Hello Iluminity,",
-      "",
-      `I would like to discuss the ${model} website concept for my ${item.name.toLowerCase()} business.`,
-      "",
-      "Business name:",
-      "City / State:",
-      "Main services:",
-      "Preferred launch date:",
-      "",
-      "Please send me the next steps and a project estimate.",
-      "",
-      "Thank you."
-    ].join("\n");
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const query = new URLSearchParams({industry:item.slug, model:String(modelIndex)});
+    return (br ? "br/contato.html?" : "contacto.html?") + query;
   }
 
   const icons = {
@@ -177,10 +164,17 @@
   document.title = `${model} — Interactive Website Demo`;
   document.documentElement.style.setProperty("--demo-accent", item.accent);
   document.querySelector("[data-demo-title]").innerHTML = `<small>${item.name} · Website ${modelIndex + 1}</small><strong>${model}</strong>`;
-  document.querySelector("[data-back-link]").href = `${item.slug}/`;
+  document.querySelector("[data-back-link]").href = br && item.slug === "roofing" ? "br/roofing/" : `${item.slug}/${br ? "?region=br" : ""}`;
   document.querySelector("[data-choose-link]").href = composeUrl();
   document.querySelector("[data-demo-site]").innerHTML = item.slug === "roofing" ? roofingLayouts[modelIndex] : layouts[modelIndex];
 
+  const choose = document.querySelector("[data-choose-link]");
+  choose.removeAttribute("target");
+  if (br) choose.textContent = "Quero este design →";
+  const disclosure = document.createElement("p");
+  disclosure.className = "demo-disclosure";
+  disclosure.textContent = br ? "Conceito demonstrativo em inglês. Conteúdo e avaliações de exemplo; sua versão será adaptada ao idioma e escopo acordados. Solicitação em português." : "Interactive concept. Business details and reviews are sample content. Features are scoped separately for each client.";
+  document.querySelector(".demo-toolbar").after(disclosure);
   const shell = document.querySelector(".demo-frame-shell");
   document.querySelectorAll(".device-button").forEach((button) => button.addEventListener("click", () => {
     document.querySelectorAll(".device-button").forEach((entry) => entry.classList.remove("active"));
@@ -205,7 +199,9 @@
     if (!action) return;
     event.preventDefault();
     const toast = document.querySelector(".demo-toast");
-    toast.innerHTML = `<strong>Demo interaction</strong><span>On a finished client site, this opens their booking or quote form.</span><a href="${composeUrl()}" target="_blank" rel="noopener">I want this design →</a>`;
+    toast.innerHTML = br
+      ? `<strong>Interação de demonstração</strong><span>No site final, este botão abre o formulário de agendamento ou orçamento do negócio.</span><a href="${composeUrl()}">Quero este design →</a>`
+      : `<strong>Demo interaction</strong><span>On a finished client site, this opens their booking or quote form.</span><a href="${composeUrl()}">I want this design →</a>`;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 6000);
   });

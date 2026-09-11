@@ -68,7 +68,7 @@
         <p>${descriptions[index]}</p>
         <div class="template-actions">
           <a class="btn btn-primary" href="../preview.html?industry=${item.slug}&model=${index}">Open live demo ${'<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7"/></svg>'}</a>
-          <a class="btn" target="_blank" rel="noopener" href="${window.Iluminity.emailUrl(item.name, model)}">Email us</a>
+          <a class="btn" href="../${new URLSearchParams(location.search).get("region") === "br" ? "br/contato.html" : "contacto.html"}?industry=${item.slug}&model=${index}">${new URLSearchParams(location.search).get("region") === "br" ? "Quero este design" : "Discuss this design"}</a>
         </div>
       </div>
     </article>`).join("");

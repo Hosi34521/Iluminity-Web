@@ -77,7 +77,7 @@
         <div><h4>${item.name} <span style="color:var(--muted);font-family:Inter;font-weight:300">/ ${item.es} / ${item.pt || item.es}</span></h4><p>${item.description}</p>${tag}</div>
         <span class="industry-arrow">${isAvailable ? "↗" : "·"}</span>`;
       return isAvailable
-        ? `<a class="industry-item" href="${base}${item.slug}/">${content}</a>`
+        ? `<a class="industry-item" href="${(location.pathname.startsWith('/br/') || new URLSearchParams(location.search).get('region') === 'br') && item.slug === 'roofing' ? '/br/roofing/' : base + item.slug + '/' + (new URLSearchParams(location.search).get('region') === 'br' ? '?region=br' : '')}">${content}</a>`
         : `<div class="industry-item is-upcoming" aria-label="${item.name}, coming soon">${content}</div>`;
     }).join("");
 
