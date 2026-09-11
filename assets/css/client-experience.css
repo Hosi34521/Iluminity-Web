@@ -1,4 +1,7 @@
 /* Client-facing refinements; retains the existing Iluminity palette and typography. */
+.commercial-actions { justify-content:flex-start;margin-top:28px;flex-wrap:wrap; }
+[data-commercial] .industry-hero { background:radial-gradient(ellipse at 90% 10%,rgba(103,84,235,.13),transparent 65%); }
+[data-commercial] .section-head p { max-width:760px; }
 :root { --muted: #adb2c8; }
 .nav-link { color:#c1c4d6; }
 .region-switch { display:flex;align-items:center;gap:10px; }

@@ -7,6 +7,7 @@
   document.querySelectorAll('a[href]').forEach(a => {
     const url = new URL(a.getAttribute('href'), location.href);
     if (url.origin !== location.origin) return;
+    if (br && url.pathname === '/roofing/') { a.href = '/br/roofing/' + url.hash; return; }
     if (br && url.pathname === '/index.html' && !a.closest('.nav-actions')) a.href = '/br/';
     if (br && (/\/(roofing|dental|hvac|realtor|law|restaurant|medspa|electrician|plumber|landscaping)\/$/.test(url.pathname) || /\/(preview|portafolio)(\.html)?$/.test(url.pathname))) {
       url.searchParams.set('region', 'br'); a.href = url.pathname + url.search + url.hash;
@@ -43,6 +44,9 @@
   if (nav) {
     const switcher = nav.querySelector('.region-switch');
     if (switcher) switcher.innerHTML = br ? '<a class="nav-link" href="/">US</a><span class="nav-link" aria-current="page">BR</span>' : '<span class="nav-link" aria-current="page">US</span><a class="nav-link" href="/br/">BR</a>';
+    if (switcher && document.body.dataset.commercial === 'roofing') {
+      switcher.innerHTML = br ? '<a class="nav-link" href="/roofing/">US</a><span class="nav-link" aria-current="page">BR</span>' : '<span class="nav-link" aria-current="page">US</span><a class="nav-link" href="/br/roofing/">BR</a>';
+    }
     const center = nav.querySelector('.nav-center');
     center.innerHTML = br
       ? '<a class="nav-link" href="/br/servicos.html">Soluções</a><a class="nav-link" href="/portafolio.html?region=br">Demos</a><a class="nav-link" href="/br/servicos.html#processo">Como funciona</a><a class="nav-link" href="/br/pricing.html">Preços</a>'

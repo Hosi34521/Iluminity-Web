@@ -164,7 +164,7 @@
   document.title = `${model} — Interactive Website Demo`;
   document.documentElement.style.setProperty("--demo-accent", item.accent);
   document.querySelector("[data-demo-title]").innerHTML = `<small>${item.name} · Website ${modelIndex + 1}</small><strong>${model}</strong>`;
-  document.querySelector("[data-back-link]").href = `${item.slug}/${br ? "?region=br" : ""}`;
+  document.querySelector("[data-back-link]").href = br && item.slug === "roofing" ? "br/roofing/" : `${item.slug}/${br ? "?region=br" : ""}`;
   document.querySelector("[data-choose-link]").href = composeUrl();
   document.querySelector("[data-demo-site]").innerHTML = item.slug === "roofing" ? roofingLayouts[modelIndex] : layouts[modelIndex];
 
