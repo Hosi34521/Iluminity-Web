@@ -70,7 +70,7 @@
     if (description) description.textContent = `© ${new Date().getFullYear()} Iluminity. ${br ? 'Sites, sistemas e automações para negócios.' : 'Websites, systems and automations for businesses.'}`;
     footer.innerHTML = br
       ? '<a href="/br/servicos.html">Soluções e processo</a><a href="/portafolio.html?region=br">Demos</a><a href="/br/pricing.html">Preços</a><a href="/br/contato.html">Contato</a><a href="/br/privacidade.html">Privacidade</a><a href="/terms.html">Termos (inglês)</a><a href="https://www.instagram.com/iluminity_studio/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/ILuminityWebStudio" target="_blank" rel="noopener">Facebook</a>'
-      : '<a href="/servicios.html">Solutions & process</a><a href="/portafolio.html">Demos</a><a href="/pricing.html">Pricing</a><a href="/contacto.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://www.instagram.com/iluminity.studio/" target="_blank" rel="noopener">Instagram</a>';
+      : '<a href="/servicios.html">Solutions & process</a><a href="/portafolio.html">Demos</a><a href="/pricing.html">Pricing</a><a href="/contacto.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://www.instagram.com/iluminity_studio/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/ILuminityWebStudio" target="_blank" rel="noopener">Facebook</a>';
   }
   const flow = document.querySelector('[data-client-flow]');
   if (flow) {
