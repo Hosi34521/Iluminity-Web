@@ -2,7 +2,8 @@
   const base = document.body.dataset.base || "";
   const catalog = window.ILUMINITY_CATALOG || [];
   const SALES_EMAIL = "iluminity.studio@gmail.com";
-  const INSTAGRAM_URL = "https://www.instagram.com/iluminity.studio/";
+  const INSTAGRAM_URL = "https://www.instagram.com/iluminity_studio/";
+  const FACEBOOK_URL = "https://www.facebook.com/ILuminityWebStudio";
 
   document.head.insertAdjacentHTML("beforeend", `<link rel="icon" href="${base}favicon.svg" type="image/svg+xml"><link rel="manifest" href="${base}site.webmanifest">`);
 
@@ -57,7 +58,7 @@
       footer.innerHTML = `
         <footer><div class="container footer-inner">
           <span>© ${new Date().getFullYear()} Iluminity. Independent web design studio.</span>
-          <div class="footer-links"><a href="${base}servicios.html">Services</a><a href="${base}portafolio.html">Demos</a><a href="${base}pricing.html">Pricing</a><a href="${base}br/">Brasil</a><a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="${base}terms.html">Terms</a></div>
+          <div class="footer-links"><a href="${base}servicios.html">Services</a><a href="${base}portafolio.html">Demos</a><a href="${base}pricing.html">Pricing</a><a href="${base}br/">Brasil</a><a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a><a href="${FACEBOOK_URL}" target="_blank" rel="noopener">Facebook</a><a href="${base}terms.html">Terms</a></div>
         </div></footer>`;
     }
   }
@@ -187,6 +188,7 @@
       return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(SALES_EMAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     },
     salesEmail: SALES_EMAIL,
-    instagram: INSTAGRAM_URL
+    instagram: INSTAGRAM_URL,
+    facebook: FACEBOOK_URL
   };
 })();

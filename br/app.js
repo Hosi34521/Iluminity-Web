@@ -1,6 +1,7 @@
 (function () {
   const base = "../";
-  const instagram = "https://www.instagram.com/iluminity.studio/";
+  const instagram = "https://www.instagram.com/iluminity_studio/";
+  const facebook = "https://www.facebook.com/ILuminityWebStudio";
   const header = document.querySelector("[data-header]");
   const footer = document.querySelector("[data-footer]");
 
@@ -24,7 +25,7 @@
   if (footer) footer.innerHTML = `
     <footer><div class="container footer-inner">
       <span>© ${new Date().getFullYear()} Iluminity Studio. Sites para negócios locais.</span>
-      <div class="footer-links"><a href="index.html">Início</a><a href="pricing.html">Preços</a><a href="contato.html">Contato</a><a href="${instagram}" target="_blank" rel="noopener">Instagram</a><a href="../terms.html">Termos</a></div>
+      <div class="footer-links"><a href="index.html">Início</a><a href="pricing.html">Preços</a><a href="contato.html">Contato</a><a href="${instagram}" target="_blank" rel="noopener">Instagram</a><a href="${facebook}" target="_blank" rel="noopener">Facebook</a><a href="../terms.html">Termos</a></div>
     </div></footer>`;
 
   document.body.insertAdjacentHTML("afterbegin", `<div class="progress" aria-hidden="true"></div><div class="orb one"></div><div class="orb two"></div>`);
