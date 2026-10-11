@@ -18,9 +18,9 @@ Iluminity is presented publicly as an **independent web design studio** focused 
 
 ## Recommended initial offer
 
-- Lead with the $1,250 Business package.
-- Keep the $650 Landing package as a low-friction entry.
-- Use the $2,400 Growth package to anchor value and serve larger clients.
+- Lead with the Business package starting at USD 1,499.
+- Keep the USD 899 fixed-scope Landing package as an entry option.
+- Use the Growth package starting at USD 2,500 for larger scoped projects.
 - Never promise rankings, leads or revenue.
 - Sell clarity, speed, industry fit and direct communication.
 

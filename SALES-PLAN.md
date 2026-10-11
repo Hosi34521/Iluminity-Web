@@ -6,8 +6,8 @@ Conseguir conversaciones reales con empresas de roofing en Estados Unidos, valid
 
 Oferta:
 
-- Landing page para roofing: precio normal desde USD 650.
-- Primeros dos proyectos aceptados: USD 450.
+- Landing page para roofing: USD 899 en el alcance fijo aprobado.
+- Cotizar únicamente los paquetes aprobados publicados en `/pricing.html`; no ofrecer una tarifa introductoria de USD 450.
 - 50% para reservar y comenzar.
 - 50% antes de la publicación o transferencia.
 - Una ronda consolidada de revisiones en la oferta fundadora.
@@ -259,7 +259,7 @@ Publica tres veces por semana:
 2. Recorrido de un demo.
 3. Antes y después conceptual.
 4. Diferencias entre landing page y sitio empresarial.
-5. Qué incluye una web desde USD 650.
+5. Qué incluye la Landing de USD 899 dentro del alcance fijo.
 
 Nunca presentes un concepto como un cliente real. Usa “concept”, “demo” o “sample”.
 
