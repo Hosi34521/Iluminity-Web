@@ -6,14 +6,18 @@
   const submit = document.getElementById('lead-submit');
   const service = document.getElementById('service');
   const budget = document.getElementById('estimatedValue');
-  // Preserve offer values even when they aren't one of the general package options.
+  // Preserve selected demo services from links; budget values are allowlisted.
   function selectValue(select, value) {
     if (!value) return;
     if (![...select.options].some(o => o.value === value)) select.add(new Option(value,value));
     select.value = value;
   }
   const selectedService = (params.get('service') || '').slice(0,160);
-  const selectedBudget = (params.get('budget') || '').slice(0,160);
+  const requestedBudget = (params.get('budget') || '').slice(0,160);
+  const allowedBudgets = new Set(br
+    ? ['BRL 220', 'BRL 790', 'BRL 1.490', 'BRL 2.490+']
+    : ['USD 499', 'USD 899', 'USD 1,499+', 'USD 2,500+']);
+  const selectedBudget = allowedBudgets.has(requestedBudget) ? requestedBudget : '';
   selectValue(service,selectedService); selectValue(budget,selectedBudget);
   const industry = window.getIndustry?.(params.get('industry'));
   const rawModel = Number(params.get('model'));
